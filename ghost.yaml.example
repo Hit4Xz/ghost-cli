@@ -1,0 +1,18 @@
+version: "1.0"
+
+# Recipients who can decrypt secrets
+recipients:
+  - name: octocat
+    github: octocat
+    publicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+    addedAt: "2026-02-11T10:30:00.000Z"
+  
+  - name: Alice Developer
+    github: alice
+    publicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7...
+    addedAt: "2026-02-11T11:00:00.000Z"
+
+# Optional settings
+settings:
+  envFile: .env
+  outputFile: .env.ghost

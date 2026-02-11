@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+bun.lockb
+
+# Build output
+dist/
+*.exe
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Ghost files (these are examples, real projects commit .env.ghost)
+.env.ghost
+ghost.yaml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
